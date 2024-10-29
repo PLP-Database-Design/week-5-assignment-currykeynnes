@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql2');
-const dotenv = require('dotenv');
+const dotenv = require('dotenv'); 
 const cors = require('cors');
 
-dotenv.config();
+dotenv.config(); 
 
 app.use(express.json());
 app.use(cors());
@@ -21,28 +21,22 @@ db.connect((err) => {
 
     console.log("Connected as id:", db.threadId);
 
-
     app.get('', (req,res) => {
         db.query
-            ('SELECT* FROM patients', (err, data)=>{
+            ('SELECT patient_id, first_name, last_name FROM patients ', (err, data)=>{
             if (err){
                 console.log(err);
                 res.statusMessage(500).send('Error retrieving data');
                 
             }
             else{
-              res.status(200).send(data) 
+               
+              res.status(200).send(data)
             }
-        })
+        })})
     })
 
     app.listen(process.env.PORT, () => {
         console.log(`Server listening on port ${process.env.PORT}`);
         console.log('Sending message to browser...');
     });
-});
-
-
-app.get('/', (req, res) => {
-    res.send('Server started successfully');
-});

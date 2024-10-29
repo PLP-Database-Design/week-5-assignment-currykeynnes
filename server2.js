@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql2');
-const dotenv = require('dotenv');
+const dotenv = require('dotenv'); 
 const cors = require('cors');
 
-dotenv.config();
+dotenv.config(); 
 
 app.use(express.json());
 app.use(cors());
@@ -24,7 +24,7 @@ db.connect((err) => {
 
     app.get('', (req,res) => {
         db.query
-            ('SELECT* FROM patients', (err, data)=>{
+            ('SELECT first_name, last_name, provider_specialty FROM providers', (err, data)=>{
             if (err){
                 console.log(err);
                 res.statusMessage(500).send('Error retrieving data');
@@ -43,6 +43,3 @@ db.connect((err) => {
 });
 
 
-app.get('/', (req, res) => {
-    res.send('Server started successfully');
-});
